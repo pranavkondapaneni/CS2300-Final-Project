@@ -32,7 +32,8 @@ CREATE TABLE Takes(
 
 CREATE TABLE Classes(
     Name varchar(15) PRIMARY KEY,
-    Pname varchar(50) NOT NULL REFERENCES Professor(Name)
+    Pname varchar(50) NOT NULL,
+    FOREIGN KEY (Pname) REFERENCES Professor(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 ALTER TABLE Takes ADD FOREIGN KEY (Cname) REFERENCES Classes(Name) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -41,7 +42,7 @@ CREATE TABLE Teachers(
     Teacher varchar(15),
     Cname varchar(15),
     PRIMARY KEY(Teacher, Cname),
-    FOREIGN KEY (Cname) REFERENCES Classes(Name)
+    FOREIGN KEY (Cname) REFERENCES Classes(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Spells(
@@ -55,8 +56,8 @@ CREATE TABLE Casts(
     Sname varchar(50),
     Cname varchar(50),
     PRIMARY KEY(Sname, Cname),
-    FOREIGN KEY (Sname) REFERENCES Spells(Name),
-    FOREIGN KEY (Cname) REFERENCES Characters(Name)
+    FOREIGN KEY (Sname) REFERENCES Spells(Name) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Cname) REFERENCES Characters(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Shops(
@@ -64,7 +65,7 @@ CREATE TABLE Shops(
     Stype varchar(20)
 );
 
-ALTER TABLE Characters ADD FOREIGN KEY (ShopName) REFERENCES Shops(Name);
+ALTER TABLE Characters ADD FOREIGN KEY (ShopName) REFERENCES Shops(Name) ON DELETE SET NULL ON UPDATE CASCADE;
 
 CREATE TABLE Wands(
     Owner varchar(50) PRIMARY KEY,
@@ -78,13 +79,13 @@ CREATE TABLE Houses(
     Name varchar(15) PRIMARY KEY CHECK(Name='Gryffindor' or Name='Slytherin' or Name='Ravenclaw' or Name='Hufflepuff')
 );
 
-ALTER TABLE Characters ADD FOREIGN KEY (Hname) REFERENCES Houses(Name);
+ALTER TABLE Characters ADD FOREIGN KEY (Hname) REFERENCES Houses(Name) ON DELETE SET NULL ON UPDATE CASCADE;
 
 CREATE TABLE Colors(
     Colors varchar(20),
     Hname varchar(15),
     PRIMARY KEY(Colors, Hname),
-    FOREIGN KEY (Hname) REFERENCES Houses(Name)
+    FOREIGN KEY (Hname) REFERENCES Houses(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Movies(
@@ -96,8 +97,8 @@ CREATE TABLE Char_In_Movies(
     Cname varchar(50),
     Mname varchar(30),
     PRIMARY KEY(Cname, Mname),
-    FOREIGN KEY (Cname) REFERENCES Characters(Name),
-    FOREIGN KEY (Mname) REFERENCES Movies(Name)
+    FOREIGN KEY (Cname) REFERENCES Characters(Name) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Mname) REFERENCES Movies(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Creatures(
@@ -110,8 +111,8 @@ CREATE TABLE An_In_Mov(
     Aname varchar(20),
     Mname varchar(30),
     PRIMARY KEY(Aname, Mname),
-    FOREIGN KEY (Aname) REFERENCES Creatures(Species),
-    FOREIGN KEY (Mname) REFERENCES Movies(Name)
+    FOREIGN KEY (Aname) REFERENCES Creatures(Species) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Mname) REFERENCES Movies(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
