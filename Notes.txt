@@ -1,0 +1,7 @@
+To do:
+Fix redundancies in Characters table
+Change name of dead_or_alive in characters table?
+
+Changes to make in report:
+-- Check constraint added to houses.
+-- Character does not need to own shop.

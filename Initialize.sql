@@ -5,40 +5,43 @@ USE HPDatabase;
 CREATE TABLE Characters(
     Name varchar(50) PRIMARY KEY,
     Age integer,
-    house varchar(15),
+    house varchar(15) CHECK(house='Gryffindor' or house='Slytherin' or house='Ravenclaw' or house='Hufflepuff'),
     Cause_Of_Death varchar(25),
     Dead_Or_Alive boolean,
     ShopName varchar(20),
     Wowner varchar(50),
-    Hname varchar(15),
-    FOREIGN KEY (ShopName) REFERENCES Shops(Name),
-    FOREIGN KEY (Wowner) REFERENCES Wands(Owner),
-    FOREIGN KEY (Hname) REFERENCES Houses(Name)
+    Hname varchar(15)
 );
 
 CREATE TABLE Student(
-    StudentName varchar(50) PRIMARY KEY
+    Name varchar(50) PRIMARY KEY,
+    FOREIGN KEY (Name) REFERENCES Characters(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Professor(
-    Name varchar(50) PRIMARY KEY
+    Name varchar(50) PRIMARY KEY,
+    FOREIGN KEY (Name) REFERENCES Characters(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Takes(
     Cname varchar(15),
-    Pname varchar(50),
-    PRIMARY KEY(Cname, Pname)
+    Sname varchar(50),
+    PRIMARY KEY(Cname, Sname),
+    FOREIGN KEY (Sname) REFERENCES Student(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Classes(
     Name varchar(15) PRIMARY KEY,
-    Pname varchar(50)
+    Pname varchar(50) NOT NULL REFERENCES Professor(Name)
 );
+
+ALTER TABLE Takes ADD FOREIGN KEY (Cname) REFERENCES Classes(Name) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE Teachers(
     Teacher varchar(15),
     Cname varchar(15),
-    PRIMARY KEY(Teacher, Cname)
+    PRIMARY KEY(Teacher, Cname),
+    FOREIGN KEY (Cname) REFERENCES Classes(Name)
 );
 
 CREATE TABLE Spells(
@@ -51,7 +54,9 @@ CREATE TABLE Spells(
 CREATE TABLE Casts(
     Sname varchar(50),
     Cname varchar(50),
-    PRIMARY KEY(Sname, Cname)
+    PRIMARY KEY(Sname, Cname),
+    FOREIGN KEY (Sname) REFERENCES Spells(Name),
+    FOREIGN KEY (Cname) REFERENCES Characters(Name)
 );
 
 CREATE TABLE Shops(
@@ -59,20 +64,27 @@ CREATE TABLE Shops(
     Stype varchar(20)
 );
 
+ALTER TABLE Characters ADD FOREIGN KEY (ShopName) REFERENCES Shops(Name);
+
 CREATE TABLE Wands(
     Owner varchar(50) PRIMARY KEY,
     Main_material varchar(30),
     Core_material varchar(30)
 );
 
+ALTER TABLE Characters ADD FOREIGN KEY (Wowner) REFERENCES Wands(Owner);
+
 CREATE TABLE Houses(
-    Name varchar(15) PRIMARY KEY
+    Name varchar(15) PRIMARY KEY CHECK(Name='Gryffindor' or Name='Slytherin' or Name='Ravenclaw' or Name='Hufflepuff')
 );
+
+ALTER TABLE Characters ADD FOREIGN KEY (Hname) REFERENCES Houses(Name);
 
 CREATE TABLE Colors(
     Colors varchar(20),
     Hname varchar(15),
-    PRIMARY KEY(Colors, Hname)
+    PRIMARY KEY(Colors, Hname),
+    FOREIGN KEY (Hname) REFERENCES Houses(Name)
 );
 
 CREATE TABLE Movies(
@@ -83,7 +95,9 @@ CREATE TABLE Movies(
 CREATE TABLE Char_In_Movies(
     Cname varchar(50),
     Mname varchar(30),
-    PRIMARY KEY(Cname, Mname)
+    PRIMARY KEY(Cname, Mname),
+    FOREIGN KEY (Cname) REFERENCES Characters(Name),
+    FOREIGN KEY (Mname) REFERENCES Movies(Name)
 );
 
 CREATE TABLE Creatures(
@@ -95,8 +109,15 @@ CREATE TABLE Creatures(
 CREATE TABLE An_In_Mov(
     Aname varchar(20),
     Mname varchar(30),
-    PRIMARY KEY(Aname, Mname)
+    PRIMARY KEY(Aname, Mname),
+    FOREIGN KEY (Aname) REFERENCES Creatures(Species),
+    FOREIGN KEY (Mname) REFERENCES Movies(Name)
 );
 
--- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter')
-INSERT INTO Shops VALUES('Olivanders', 'wand store')
+-- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
+-- INSERT INTO Shops VALUES('Olivanders', 'wand store');
+INSERT INTO Houses VALUES('Gryffindor');
+INSERT INTO Houses VALUES('Slytherin');
+INSERT INTO Houses VALUES('Ravenclaw');
+INSERT INTO Houses VALUES('Hufflepuff');
+INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
