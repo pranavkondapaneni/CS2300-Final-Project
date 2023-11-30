@@ -1,6 +1,6 @@
-CREATE DATABASE WeAreTheChosenOneHarry;
+CREATE DATABASE HPDatabase;
 
-USE WeAreTheChosenOneHarry;
+USE HPDatabase;
 
 CREATE TABLE Characters(
     Name varchar(50) PRIMARY KEY,
@@ -10,7 +10,10 @@ CREATE TABLE Characters(
     Dead_Or_Alive boolean,
     ShopName varchar(20),
     Wowner varchar(50),
-    Hname varchar(15)
+    Hname varchar(15),
+    FOREIGN KEY (ShopName) REFERENCES Shops(Name),
+    FOREIGN KEY (Wowner) REFERENCES Wands(Owner),
+    FOREIGN KEY (Hname) REFERENCES Houses(Name)
 );
 
 CREATE TABLE Student(
@@ -96,3 +99,4 @@ CREATE TABLE An_In_Mov(
 );
 
 -- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter')
+INSERT INTO Shops VALUES('Olivanders', 'wand store')
