@@ -32,7 +32,7 @@ CREATE TABLE Takes(
 
 CREATE TABLE Classes(
     Name varchar(15) PRIMARY KEY,
-    Pname varchar(50) NOT NULL,
+    Pname varchar(50) NOT NULL UNIQUE,
     FOREIGN KEY (Pname) REFERENCES Professor(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -115,10 +115,20 @@ CREATE TABLE An_In_Mov(
     FOREIGN KEY (Mname) REFERENCES Movies(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
--- INSERT INTO Shops VALUES('Olivanders', 'wand store');
+CREATE TABLE User(
+    Username varchar(20),
+    Password varchar(20),
+    Email varchar(320),
+    PRIMARY KEY(Username)
+);
+
 INSERT INTO Houses VALUES('Gryffindor');
 INSERT INTO Houses VALUES('Slytherin');
 INSERT INTO Houses VALUES('Ravenclaw');
 INSERT INTO Houses VALUES('Hufflepuff');
 INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
+
+
+-- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
+-- INSERT INTO Professor VALUES('Harry Potter');
+-- INSERT INTO Shops VALUES('Olivanders', 'wand store');

@@ -11,4 +11,13 @@ conn = mysql.connector.connect(
     password=os.getenv('PASSWORD')
 )
 
-print(conn)
+cursor = conn.cursor()
+
+cursor.execute("USE HPDatabase;")
+
+# cursor.execute("INSERT INTO Classes VALUES('Light Arts', 'Harry Potter');")
+# conn.commit()
+
+# cursor.execute("SELECT * FROM Characters;")
+# result = cursor.fetchall()
+# print(result[0][1])
