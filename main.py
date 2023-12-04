@@ -58,6 +58,9 @@ while (loop == True):
         except mysql.connector.Error as e:
             print("The username you have entered already exists, please enter a new username!")
             loop = True
+
+print("Enter choice")
+
 endIt = input("endit: ")
 
 
