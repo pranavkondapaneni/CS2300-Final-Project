@@ -128,7 +128,8 @@ INSERT INTO Houses VALUES('Hufflepuff');
 -- INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
 
 
--- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
+INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
+-- INSERT INTO Characters VALUES('Ron Weasly', 40 , 'Gryffindor', NULL, true, NULL, 'Harry Potter', 'Gryffindor');
 -- INSERT INTO Professor VALUES('Harry Potter');
 -- INSERT INTO Shops VALUES('Olivanders', 'wand store');
 INSERT INTO User VALUES('Pranav', 'thepassword', 'pranav@imthebest.com');

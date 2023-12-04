@@ -18,14 +18,34 @@ cursor.execute("USE HPDatabase;")
 #Search function
 def search_db(table_name):
     print("Do you want to filter your search?")
-    choice = input("type '1' for yes or '2' for no")
+    choice = input("type '1' for yes or '2' for no. Type '3' to go to main menu")
 
-    if choice == 1:
+    if choice == "1":
         print("Do you want to see a single column, single tuple or multiple tuples")
-        filter = input("If you want to see a single column enter 1, IF you want to see a single tuple enter 2, if you want to see multiple tuples enter 4")
-    try:
-        search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = {search_val};"
+        filter = input("If you want to see a single column enter 1, if you want to see a single tuple enter 2, if you want to see multiple tuples enter 3")
 
+        if filter == "1":
+            col = input("Enter name of column")
+            search_query = f"SELECT {col} FROM {table_name};"
+        if filter == "2":
+            print("Must use primary Key!")
+            search_col = input("Enter primary key for the table")
+            search_val = input("Enter the value you want to serach")
+            col = "*"
+            search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = '{search_val}';"
+        if filter == "3":
+            col = "*"
+            search_col = input("Enter column that is not the primary key (i.e age, color, material)")
+            search_val = input("Enter a value")
+            search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = {search_val};"
+    
+    if choice == "2":
+        search_query = f"SELECT * FROM {table_name};"
+
+    if choice == "3":
+        return 0
+
+    try:
         cursor.execute(search_query)
         results = cursor.fetchall()
 
@@ -87,6 +107,7 @@ while (loop == True):
     if(accountChoice == "3"):
         table = input("Input the table you want to search")
         search_db(table)
+        loop = False
 
 
 print("Enter choice")
