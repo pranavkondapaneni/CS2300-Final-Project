@@ -88,6 +88,9 @@ while (loop == True):
         table = input("Input the table you want to search")
         search_db(table)
 
+
+print("Enter choice")
+
 endIt = input("endit: ")
 
 
