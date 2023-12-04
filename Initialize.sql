@@ -71,7 +71,7 @@ CREATE TABLE Wands(
     Owner varchar(50) PRIMARY KEY,
     Main_material varchar(30),
     Core_material varchar(30),
-    FOREIGN KEY (Owner) REFERENCES Characters(Name)
+    FOREIGN KEY (Owner) REFERENCES Characters(Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Houses(
