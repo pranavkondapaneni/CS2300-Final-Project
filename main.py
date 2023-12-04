@@ -15,10 +15,35 @@ cursor = conn.cursor()
 
 cursor.execute("USE HPDatabase;")
 
+#Search function
+def search_db(table_name):
+    print("Do you want to filter your search?")
+    choice = input("type '1' for yes or '2' for no")
+
+    if choice == 1:
+        print("Do you want to see a single column, single tuple or multiple tuples")
+        filter = input("If you want to see a single column enter 1, IF you want to see a single tuple enter 2, if you want to see multiple tuples enter 4")
+    try:
+        search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = {search_val};"
+
+        cursor.execute(search_query)
+        results = cursor.fetchall()
+
+        if results:
+            print("Search Results:")
+            for result in results:
+                print(result)
+        else:
+            print("no results found")
+    except mysql.connector.Error as e:
+        print(e)   
+
 print("WELCOME TO THE HPDATABASE!")
 print("Enter 1 to log in")
 print("     -- OR --")
 print("Enter 2 to create an account")
+print("     -- OR --")
+print("Enter 3 to search the database")
 accountChoice = input("Choice: ")
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -58,7 +83,14 @@ while (loop == True):
         except mysql.connector.Error as e:
             print("The username you have entered already exists, please enter a new username!")
             loop = True
+
+    if(accountChoice == "3"):
+        table = input("Input the table you want to search")
+        search_db(table)
+
 endIt = input("endit: ")
+
+
 
 
 # cursor.execute("INSERT INTO Classes VALUES('Light Arts', 'Harry Potter');")
