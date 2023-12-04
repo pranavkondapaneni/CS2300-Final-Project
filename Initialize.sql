@@ -70,10 +70,9 @@ ALTER TABLE Characters ADD FOREIGN KEY (ShopName) REFERENCES Shops(Name) ON DELE
 CREATE TABLE Wands(
     Owner varchar(50) PRIMARY KEY,
     Main_material varchar(30),
-    Core_material varchar(30)
+    Core_material varchar(30),
+    FOREIGN KEY (Owner) REFERENCES Characters(Name)
 );
-
-ALTER TABLE Characters ADD FOREIGN KEY (Wowner) REFERENCES Wands(Owner);
 
 CREATE TABLE Houses(
     Name varchar(15) PRIMARY KEY CHECK(Name='Gryffindor' or Name='Slytherin' or Name='Ravenclaw' or Name='Hufflepuff')
@@ -126,7 +125,7 @@ INSERT INTO Houses VALUES('Gryffindor');
 INSERT INTO Houses VALUES('Slytherin');
 INSERT INTO Houses VALUES('Ravenclaw');
 INSERT INTO Houses VALUES('Hufflepuff');
-INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
+-- INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
 
 
 -- INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
