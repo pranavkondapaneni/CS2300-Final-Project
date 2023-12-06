@@ -58,17 +58,18 @@ def search_db(table_name):
     except mysql.connector.Error as e:
         print(e)   
 
-print("WELCOME TO THE HPDATABASE!")
-print("Enter 1 to log in")
-print("     -- OR --")
-print("Enter 2 to create an account")
-print("     -- OR --")
-print("Enter 3 to search the database")
-accountChoice = input("Choice: ")
-os.system('cls' if os.name == 'nt' else 'clear')
+
 
 loop = True
 while (loop == True):
+    print("WELCOME TO THE HPDATABASE!")
+    print("Enter 1 to log in")
+    print("     -- OR --")
+    print("Enter 2 to create an account")
+    print("     -- OR --")
+    print("Enter 3 to search the database")
+    accountChoice = input("Choice: ")
+    os.system('cls' if os.name == 'nt' else 'clear')
     if(accountChoice == "1"):
         username = input("Username: ")
         cursor.execute("SELECT Username FROM User;")
@@ -107,7 +108,7 @@ while (loop == True):
     if(accountChoice == "3"):
         table = input("Input the table you want to search")
         search_db(table)
-        loop = False
+        
 
 
 print("Enter choice")
