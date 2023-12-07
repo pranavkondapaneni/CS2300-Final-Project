@@ -93,7 +93,7 @@ CREATE TABLE Movies(
 
 CREATE TABLE Char_In_Movies(
     Cname varchar(50),
-    Mname varchar(30),
+    Mname varchar(100),
     PRIMARY KEY(Cname, Mname),
     FOREIGN KEY (Cname) REFERENCES Characters(Name) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Mname) REFERENCES Movies(Name) ON DELETE CASCADE ON UPDATE CASCADE
@@ -107,7 +107,7 @@ CREATE TABLE Creatures(
 
 CREATE TABLE An_In_Mov(
     Aname varchar(20),
-    Mname varchar(30),
+    Mname varchar(100),
     PRIMARY KEY(Aname, Mname),
     FOREIGN KEY (Aname) REFERENCES Creatures(Species) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Mname) REFERENCES Movies(Name) ON DELETE CASCADE ON UPDATE CASCADE
