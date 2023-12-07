@@ -246,7 +246,7 @@ def insertInto_db():
                 while (addCreatures == "yes"):
                     creaMovName = input("Which movie was this creature in?: ")
                     try:
-                        cursor.execute(f"INSERT INTO Char_In_Movies VALUES('{creaturesSpecies}', '{creaMovName}');")
+                        cursor.execute(f"INSERT INTO An_In_Mov VALUES('{creaturesSpecies}', '{creaMovName}');")
                     except mysql.connector.Error as e:
                         print(e)
                     addCreatures = input("Was this creature in any other movies? yes/no ")
