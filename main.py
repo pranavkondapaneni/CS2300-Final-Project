@@ -305,7 +305,6 @@ while (loop == True):
 
 modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
 while modifyChoice != "4":
-    insertInto_db()
     modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
     if modifyChoice == "1":
         insertInto_db()
