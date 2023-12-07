@@ -316,11 +316,11 @@ while modifyChoice != "4":
         update_db()
     if modifyChoice == "3":
         deleteFrom_db()
+    modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
+    conn.commit()
 
 
 endIt = input("endit: ")
-
-
 
 
 # cursor.execute("INSERT INTO Classes VALUES('Light Arts', 'Harry Potter');")
