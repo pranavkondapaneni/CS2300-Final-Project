@@ -68,8 +68,8 @@ def search_db(table_name):
 
 def update_db():
     table_name = input("Enter the name of the table you would like to update: ")
+    update_column = input("Enter the name of the column you would like to update: ")
     new_value = input("What would you like to update the value to?: ")
-    update_column = input("Enter the column for which the tuple you would like to update is located: ")
     remain_same_column = input("Which column would keep the same value: ")
     remain_same_othercolumnvalue = input("Enter that value: ")
     if table_name == "Characters" and update_column == "house":
