@@ -87,7 +87,7 @@ CREATE TABLE Colors(
 );
 
 CREATE TABLE Movies(
-    Name varchar(30) PRIMARY KEY,
+    Name varchar(100) PRIMARY KEY,
     MOrder integer
 );
 

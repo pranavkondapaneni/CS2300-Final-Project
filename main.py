@@ -80,6 +80,11 @@ def update_db():
         cursor.execute(update_query)
     except mysql.connector.Error as e: 
         print(e)
+    try:
+        cursor.execute(f"SELECT {remain_same_column} FROM {table_name} WHERE {remain_same_column} = '{remain_same_othercolumnvalue}';")
+    except mysql.connector.Error as e:
+        print(e)
+        print("The tuple you are trying to change doesn't exist.")
 
 def deleteFrom_db():
     table_name = input("Enter the name of the table you would like to delete from: ")
@@ -237,14 +242,14 @@ def insertInto_db():
             except mysql.connector.Error as e:
                 print(e)
             else:
-                addCreatures = input("Would you like to add more creatures? yes/no ")
+                addCreatures = "yes"
                 while (addCreatures == "yes"):
-                    creaMovName = input("Character name: ")
+                    creaMovName = input("Which movie was this creature in?: ")
                     try:
-                        cursor.execute(f"INSERT INTO Char_In_Movies VALUES('{creaMovName}', '{movieName}');")
+                        cursor.execute(f"INSERT INTO Char_In_Movies VALUES('{creaturesSpecies}', '{creaMovName}');")
                     except mysql.connector.Error as e:
                         print(e)
-                    addCreatures = input("Would you like to add more creatures? yes/no ")
+                    addCreatures = input("Was this creature in any other movies? yes/no ")
 
 # --------------------------------------------
         else:
@@ -305,7 +310,6 @@ while (loop == True):
 
 modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
 while modifyChoice != "4":
-    modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
     if modifyChoice == "1":
         insertInto_db()
     if modifyChoice == "2":
