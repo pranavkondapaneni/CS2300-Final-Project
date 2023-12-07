@@ -82,6 +82,7 @@ def update_db():
         print(e)
     try:
         cursor.execute(f"SELECT {remain_same_column} FROM {table_name} WHERE {remain_same_column} = '{remain_same_othercolumnvalue}';")
+        f = cursor.fetchall()
     except mysql.connector.Error as e:
         print(e)
         print("The tuple you are trying to change doesn't exist.")
