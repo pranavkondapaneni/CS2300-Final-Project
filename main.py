@@ -283,7 +283,7 @@ while (loop == True):
                     loop = False
                 os.system('cls' if os.name == 'nt' else 'clear')
         else:
-            accountChoice = input("This username doesn't exist. if you would like to reenter, enter 1, otherwise, enter 2: ")
+            print("This username doesn't exist")
 
     if(accountChoice == "2"):
         createUsername = input("Enter your username: ")
