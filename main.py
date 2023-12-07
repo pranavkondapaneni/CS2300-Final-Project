@@ -15,7 +15,14 @@ cursor = conn.cursor()
 
 cursor.execute("USE HPDatabase;")
 
+# primaryKeyDict = {
+#     "Characters" : "Name",
+#     "Student" : Name
+# }
+
 #Search function
+os.system('cls' if os.name == 'nt' else 'clear')
+
 def search_db(table_name):
     print("Do you want to filter your search?")
     choice = input("type '1' for yes or '2' for no. Type '3' to go to main menu")
@@ -59,6 +66,191 @@ def search_db(table_name):
         print(e)   
 
 
+def update_db():
+    table_name = input("Enter the name of the table you would like to update: ")
+    new_value = input("What would you like to update the value to?: ")
+    update_column = input("Enter the column for which the tuple you would like to update is located: ")
+    remain_same_column = input("Which column would keep the same value: ")
+    remain_same_othercolumnvalue = input("Enter that value: ")
+    if table_name == "Characters" and update_column == "house":
+        update_query = f"UPDATE {table_name} SET {update_column} = '{new_value}', Hname = '{new_value}' WHERE {remain_same_column} = '{remain_same_othercolumnvalue}';"
+    else:
+        update_query = f"UPDATE {table_name} SET {update_column} = '{new_value}' WHERE {remain_same_column} = '{remain_same_othercolumnvalue}';"
+    try:
+        cursor.execute(update_query)
+    except mysql.connector.Error as e: 
+        print(e)
+
+def deleteFrom_db():
+    table_name = input("Enter the name of the table you would like to delete from: ")
+    primary_key_col = input("Enter the primary key column for the table: ")
+    primary_key_value = input(f"Enter the {primary_key_col} value of the tuple to delete: ")
+
+    delete_query = f"DELETE FROM {table_name} WHERE {primary_key_col} = '{primary_key_value}';"
+
+    try:
+        cursor.execute(delete_query)
+        # conn.commit()
+
+        if cursor.rowcount > 0:
+            print("Deleted the tuple.")
+        else:
+            print("Could not find that tuple to delete.")
+    except mysql.connector.Error as e:
+        print(e)
+
+def insertInto_db():
+    loop = "y"
+    while loop == "y":
+        table_name = input("Enter the name of the table you would like to insert into: ")
+        if table_name == "Characters":
+            charName = input("Name: ")
+            charAge = input("Age: ")
+            charHouse = input("House: ")
+            charDOA = input("Is this character alive? \'True\' or \'False\': ")
+            if charDOA == "False":
+                charCauseOfDeath = input("Cause of death: ")
+            elif charDOA == "True":
+                charCauseOfDeath = "NULL"
+            try:
+                cursor.execute(f"INSERT INTO Characters VALUES('{charName}', {charAge}, '{charHouse}', '{charCauseOfDeath}', {charDOA}, NULL, '{charHouse}');")
+            except mysql.connector.Error as e:
+                print(e)
+
+# --------------------------------------------
+        elif table_name == "Student":
+            stuName = input("Name: ")
+            try:
+                cursor.execute(f"INSERT INTO Student VALUES('{stuName}');")
+            except mysql.connector.Error as e:
+                print(e)
+            else:
+                try:
+                    stuClassChoice = input("Would you like to enter a class this student takes? yes/no: ")
+                    while stuClassChoice == "yes":
+                        className = input("Class name: ")
+                        cursor.execute(f"INSERT INTO Takes VALUES('{className}', '{stuName}');")
+                except mysql.connector.Error as e:
+                    print(e)
+
+# --------------------------------------------
+        elif table_name == "Professor":
+            profName = input("Name: ")
+            try:
+                cursor.execute(f"INSERT INTO Professor VALUES('{profName}');")
+            except mysql.connector.Error as e:
+                print(e)
+
+# --------------------------------------------
+        elif table_name == "Classes":
+            classTabName = input("Name: ")
+            ProfessorName = input("Pname: ")
+            try:
+                cursor.execute(f"INSERT INTO Classes VALUES('{classTabName}', '{ProfessorName}');")
+            except mysql.connector.Error as e:
+                print(e)
+                additional = input("Would you like to add additional teachers?")
+                while additional == "yes":
+                    addName = input("Name: ")
+                    try:
+                        cursor.execute(f"INSERT INTO Teachers VALUES('{classTabName}', '{addName}')")
+                    except mysql.connector.Error as e:
+                        print(e)
+                    additional = input("Would you like to add additional teachers?")
+
+# --------------------------------------------
+        elif table_name == "Spells":
+            spellName = input("Name: ")
+            spellSpell = input("Spell: ")
+            spellDeadly = input("Deadly? True/False: ")
+            spellEffect = input("Effect: ")
+            try:
+                cursor.execute(f"INSERT INTO Spell VALUES('{spellName}', '{spellSpell}', {spellDeadly}, '{spellEffect}');")
+            except mysql.connector.Error as e:
+                print(e)
+            else:
+                caster = input("Who cases this spell? ")
+                try:
+                    cursor.execute(f"INSERT INTO Casts VALUES('{spellName}', '{caster}');")
+                except mysql.connector.Error as e:
+                    print(e)
+
+# --------------------------------------------
+        elif table_name == "Shops":
+            shopName = input("Name: ")
+            shopType = input("Type: ")
+            try:
+                cursor.execute(f"INSERT INTO Shops VALUES('{shopName}', '{shopType}');")
+            except mysql.connector.Error as e:
+                print(e)
+            else:
+                shopOwner = input("Who owns this shop? ")
+                try:
+                    cursor.execute(f"UPDATE Characters SET ShopName = '{shopName}' WHERE Name = '{shopOwner}';")
+                except mysql.connector.Error as e:
+                    print(e)
+# Otherwise don't add the shop name
+# --------------------------------------------
+        elif table_name == "Wands":
+            wandOwner = input("Owner: ")
+            wandMainMaterial = input("Main material: ")
+            wandCoreMaterial = input("Core Material: ")
+            try:
+                cursor.execute(f"INSERT INTO Wands VALUES('{wandOwner}', '{wandMainMaterial}', '{wandCoreMaterial}');")
+            except mysql.connector.Error as e:
+                print(e)
+
+# --------------------------------------------
+        elif table_name == "Houses":
+            print("Are you really really sure you want to add a house? This info hasn't changed in centuries.")
+            houseName = input("Name: ")
+            try:
+                cursor.execute(f"INSERT INTO Houses VALUES('{houseName}');")
+            except mysql.connector.Error as e:
+                print(e)
+
+# --------------------------------------------
+        elif table_name == "Movies":
+            movieName = input("Name: ")
+            movieOrder = input("# in sequence: ")
+            try:
+                cursor.execute(f"INSERT INTO Movies VALUES('{movieName}', '{movieOrder}');")
+            except mysql.connector.Error as e:
+                print(e)
+            else:
+                addCharacters = input("Would you like to add more characters? yes/no ")
+                while (addCharacters == "yes"):
+                    charMovName = input("Character name: ")
+                    try:
+                        cursor.execute(f"INSERT INTO Char_In_Movies VALUES('{charMovName}', '{movieName}');")
+                    except mysql.connector.Error as e:
+                        print(e)
+                    addCharacters = input("Would you like to add more characters? yes/no ")
+
+# --------------------------------------------
+        elif table_name == "Creatures":
+            creaturesSpecies = input("Species: ")
+            creaturesAvgWeight = input("Average Weight: ")
+            friendlyOrDangerous = input("Is the creature friendly? True/False ")
+            try:
+                cursor.execute(f"INSERT INTO Creatures VALUES('{creaturesSpecies}', '{creaturesAvgWeight}', {friendlyOrDangerous});")
+            except mysql.connector.Error as e:
+                print(e)
+            else:
+                addCreatures = input("Would you like to add more creatures? yes/no ")
+                while (addCreatures == "yes"):
+                    creaMovName = input("Character name: ")
+                    try:
+                        cursor.execute(f"INSERT INTO Char_In_Movies VALUES('{creaMovName}', '{movieName}');")
+                    except mysql.connector.Error as e:
+                        print(e)
+                    addCreatures = input("Would you like to add more creatures? yes/no ")
+
+# --------------------------------------------
+        else:
+            print("This table does not exist.")
+        loop = input("Would you like to continue inserting? y/n: ")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 loop = True
 while (loop == True):
@@ -111,7 +303,17 @@ while (loop == True):
         
 
 
-print("Enter choice")
+modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
+while modifyChoice != "4":
+    insertInto_db()
+    modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
+    if modifyChoice == "1":
+        insertInto_db()
+    if modifyChoice == "2":
+        update_db()
+    if modifyChoice == "3":
+        deleteFrom_db()
+
 
 endIt = input("endit: ")
 

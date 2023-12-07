@@ -9,7 +9,6 @@ CREATE TABLE Characters(
     Cause_Of_Death varchar(25),
     Dead_Or_Alive boolean,
     ShopName varchar(20),
-    Wowner varchar(50),
     Hname varchar(15)
 );
 
@@ -128,8 +127,9 @@ INSERT INTO Houses VALUES('Hufflepuff');
 -- INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
 
 
-INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Harry Potter', 'Gryffindor');
--- INSERT INTO Characters VALUES('Ron Weasly', 40 , 'Gryffindor', NULL, true, NULL, 'Harry Potter', 'Gryffindor');
+INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Gryffindor');
+INSERT INTO Characters VALUES('Draco Malfoy', 43, 'Slytherin', NULL, True, NULL, 'Gryffindor');
+-- INSERT INTO Characters VALUES('Ron Weasly', 40 , 'Gryffindor', NULL, true, NULL, 'Gryffindor');
 -- INSERT INTO Professor VALUES('Harry Potter');
 -- INSERT INTO Shops VALUES('Olivanders', 'wand store');
 INSERT INTO User VALUES('Pranav', 'thepassword', 'pranav@imthebest.com');
