@@ -219,7 +219,7 @@ def insertInto_db():
             movieName = input("Name: ")
             movieOrder = input("# in sequence: ")
             try:
-                cursor.execute(f"INSERT INTO Movies VALUES('{movieName}', '{movieOrder}');")
+                cursor.execute(f"INSERT INTO Movies VALUES('{movieName}', {movieOrder});")
             except mysql.connector.Error as e:
                 print(e)
             else:
