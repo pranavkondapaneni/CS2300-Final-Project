@@ -38,7 +38,7 @@ def search_db(table_name):
             col = "*"
             search_col = input("Enter column that is not the primary key (i.e age, color, material) ")
             search_val = input("Enter a value ")
-            search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = {search_val};"
+            search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = '{search_val}';"
     
     if choice == "2":
         search_query = f"SELECT * FROM {table_name};"
