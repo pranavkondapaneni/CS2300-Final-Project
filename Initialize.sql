@@ -124,12 +124,16 @@ INSERT INTO Houses VALUES('Gryffindor');
 INSERT INTO Houses VALUES('Slytherin');
 INSERT INTO Houses VALUES('Ravenclaw');
 INSERT INTO Houses VALUES('Hufflepuff');
--- INSERT INTO Wands VALUES('Harry Potter', 'Gold', 'Silver');
-
 
 INSERT INTO Characters VALUES('Harry Potter', 40, 'Gryffindor', NULL, True, NULL, 'Gryffindor');
 INSERT INTO Characters VALUES('Draco Malfoy', 43, 'Slytherin', NULL, True, NULL, 'Gryffindor');
--- INSERT INTO Characters VALUES('Ron Weasly', 40 , 'Gryffindor', NULL, true, NULL, 'Gryffindor');
--- INSERT INTO Professor VALUES('Harry Potter');
--- INSERT INTO Shops VALUES('Olivanders', 'wand store');
 INSERT INTO User VALUES('Pranav', 'thepassword', 'pranav@imthebest.com');
+
+INSERT INTO Colors VALUES ('yellow', 'Gryffindor');
+INSERT INTO Colors VALUES ('red', 'Gryffindor');
+INSERT INTO Colors VALUES ('green', 'Slytherin');
+INSERT INTO Colors VALUES ('black', 'Slytherin');
+INSERT INTO Colors VALUES ('yellow', 'Hufflepuff');
+INSERT INTO Colors VALUES ('black', 'Hufflepuff');
+INSERT INTO Colors VALUES ('blue', 'Ravenclaw');
+INSERT INTO Colors VALUES ('bronze', 'Ravenclaw');

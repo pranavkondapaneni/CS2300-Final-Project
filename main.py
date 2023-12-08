@@ -15,35 +15,29 @@ cursor = conn.cursor()
 
 cursor.execute("USE HPDatabase;")
 
-# primaryKeyDict = {
-#     "Characters" : "Name",
-#     "Student" : Name
-# }
-
-#Search function
 os.system('cls' if os.name == 'nt' else 'clear')
 
 def search_db(table_name):
-    print("Do you want to filter your search?")
-    choice = input("type '1' for yes or '2' for no. Type '3' to go to main menu")
+    print("Do you want to filter your search? ")
+    choice = input("type '1' for yes or '2' for no. Type '3' to go to main menu ")
 
     if choice == "1":
-        print("Do you want to see a single column, single tuple or multiple tuples")
-        filter = input("If you want to see a single column enter 1, if you want to see a single tuple enter 2, if you want to see multiple tuples enter 3")
+        print("Do you want to see a single column, single tuple or multiple tuples ")
+        filter = input("If you want to see a single column enter 1, if you want to see a single tuple enter 2, if you want to see multiple tuples enter 3 ")
 
         if filter == "1":
-            col = input("Enter name of column")
+            col = input("Enter name of column ")
             search_query = f"SELECT {col} FROM {table_name};"
         if filter == "2":
             print("Must use primary Key!")
-            search_col = input("Enter primary key for the table")
-            search_val = input("Enter the value you want to serach")
+            search_col = input("Enter primary key for the table ")
+            search_val = input("Enter the value you want to serach ")
             col = "*"
             search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = '{search_val}';"
         if filter == "3":
             col = "*"
-            search_col = input("Enter column that is not the primary key (i.e age, color, material)")
-            search_val = input("Enter a value")
+            search_col = input("Enter column that is not the primary key (i.e age, color, material) ")
+            search_val = input("Enter a value ")
             search_query = f"SELECT {col} FROM {table_name} WHERE {search_col} = {search_val};"
     
     if choice == "2":
@@ -70,8 +64,8 @@ def update_db():
     table_name = input("Enter the name of the table you would like to update: ")
     update_column = input("Enter the name of the column you would like to update: ")
     new_value = input("What would you like to update the value to?: ")
-    remain_same_column = input("Which column would keep the same value: ")
-    remain_same_othercolumnvalue = input("Enter that value: ")
+    remain_same_column = input("What is the primary key for this table: ")
+    remain_same_othercolumnvalue = input("Enter that value of the primary key for the entry you want to update: ")
     if table_name == "Characters" and update_column == "house":
         update_query = f"UPDATE {table_name} SET {update_column} = '{new_value}', Hname = '{new_value}' WHERE {remain_same_column} = '{remain_same_othercolumnvalue}';"
     else:
@@ -149,8 +143,8 @@ def insertInto_db():
 
 # --------------------------------------------
         elif table_name == "Classes":
-            classTabName = input("Name: ")
-            ProfessorName = input("Pname: ")
+            classTabName = input("Class Name: ")
+            ProfessorName = input("Professor nname: ")
             try:
                 cursor.execute(f"INSERT INTO Classes VALUES('{classTabName}', '{ProfessorName}');")
             except mysql.connector.Error as e:
@@ -159,7 +153,7 @@ def insertInto_db():
                 while additional == "yes":
                     addName = input("Name: ")
                     try:
-                        cursor.execute(f"INSERT INTO Teachers VALUES('{classTabName}', '{addName}')")
+                        cursor.execute(f"INSERT INTO Teachers VALUES('{addName}', '{classTabName}')")
                     except mysql.connector.Error as e:
                         print(e)
                     additional = input("Would you like to add additional teachers?")
@@ -171,7 +165,7 @@ def insertInto_db():
             spellDeadly = input("Deadly? True/False: ")
             spellEffect = input("Effect: ")
             try:
-                cursor.execute(f"INSERT INTO Spell VALUES('{spellName}', '{spellSpell}', {spellDeadly}, '{spellEffect}');")
+                cursor.execute(f"INSERT INTO Spells VALUES('{spellName}', '{spellSpell}', {spellDeadly}, '{spellEffect}');")
             except mysql.connector.Error as e:
                 print(e)
             else:
@@ -257,6 +251,7 @@ def insertInto_db():
             print("This table does not exist.")
         loop = input("Would you like to continue inserting? y/n: ")
         os.system('cls' if os.name == 'nt' else 'clear')
+        conn.commit()
 
 loop = True
 while (loop == True):
@@ -304,29 +299,23 @@ while (loop == True):
             loop = True
 
     if(accountChoice == "3"):
-        table = input("Input the table you want to search")
+        table = input("Input the table you want to search ")
         search_db(table)
         
 
 
-modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
-while modifyChoice != "4":
+modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, (4) Search, or (5) End?: ")
+while modifyChoice != "5":
     if modifyChoice == "1":
         insertInto_db()
     if modifyChoice == "2":
         update_db()
     if modifyChoice == "3":
         deleteFrom_db()
-    modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, or (4) end?: ")
+    if modifyChoice == "4":
+        table = input("Input the table you want to search")
+        search_db(table)
     conn.commit()
-
-
-endIt = input("endit: ")
-
-
-# cursor.execute("INSERT INTO Classes VALUES('Light Arts', 'Harry Potter');")
+    modifyChoice = input("Do you want to (1) Insert, (2) Update, (3) Delete, (4) Search, or (5) End?: ")
+    
 conn.commit()
-
-# cursor.execute("SELECT * FROM Characters;")
-# result = cursor.fetchall()
-# print(result[0][1])
